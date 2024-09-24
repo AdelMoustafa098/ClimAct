@@ -44,7 +44,11 @@ if st.button("Generate Actions"):
         api_url = 'https://jamdu40uje.execute-api.us-east-1.amazonaws.com/prod/climate-recommendations'
 
         # Send a POST request to the API Gateway with the entered prompt
-        response = requests.post(api_url, headers={"Content-Type": "application/json"}, data=json.dumps({"prompt": prompt}))
+        if prompt.lower() in ["cairo", "new york", "tokyo", "paris",
+                              "london", "dubai", "beijing", "sydney", "mumbai", "moscow"]:
+                              response = requests.post(api_url, headers={"Content-Type": "application/json"}, data=json.dumps({"prompt": f"give five short recommendations to be take by the people of {prompt} to fight cilmate change"}))
+        else:
+            response = requests.post(api_url, headers={"Content-Type": "application/json"}, data=json.dumps({"prompt": prompt}))
 
         # Display the response or handle the error
         if response.status_code == 200:
